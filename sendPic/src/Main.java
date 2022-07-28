@@ -21,9 +21,11 @@ public class Main {
 		}
 		
 		Drawer drawer = new Drawer();
-		drawer.watermarking_cover(img_file, new Record().nextrecord());
+//		drawer.watermarking_cover(img_file, new Record().nextrecord());//已废弃
+		drawer.watermarking_cover(img_file);
 			
 		String path = new File("out.jpg").getAbsolutePath();
+		System.out.println("out: "+path);
 		//如果是windows系统，则转换为windows格式的路径
 		if(System.getProperty("os.name").toLowerCase().contains("windows")) {
 			path = path.replace("\\", "/");

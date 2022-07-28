@@ -25,9 +25,11 @@ public class Record {
 		int number = 0;
 		int text;
 		while((text = in.read()) != -1) {
-			num += (char)text;
+			if(text>=48&&text<=57)
+				num += (char)text;
 		}
 		in.close();
+		System.out.println("readnum: "+num);
 		try {
 			number = Integer.valueOf(num);
 		}catch (NumberFormatException e) {

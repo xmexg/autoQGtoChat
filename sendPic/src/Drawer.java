@@ -6,11 +6,14 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
 public class Drawer {
-	public void watermarking_cover(File file, String num) throws IOException{		
+	public void watermarking_cover_old(File file, String num) throws IOException{		
+		/* 导员改了要求，已经不使用这里了 */
 		//File 转 BufferedImage
 		Image image = ImageIO.read(file);
 		BufferedImage bimage = (BufferedImage)image;
@@ -26,7 +29,7 @@ public class Drawer {
         
         //写上积分
         graphics.setColor(new Color(228, 35, 20));
-        Font font = new Font("黑体", Font.PLAIN, 90);
+        Font font = new Font("黑体", Font.PLAIN, 80);
         graphics.setFont(font);
         graphics.drawString(num, 70, 630);//这里为积分数字的位置
         
@@ -36,4 +39,32 @@ public class Drawer {
         //将绘制好的图片写入到图片
         ImageIO.write(bimage, "jpg", new File("out.jpg"));
 	}
+	
+	public void watermarking_cover(File file) throws IOException {
+		Image image = ImageIO.read(file);
+		BufferedImage bimage = (BufferedImage)image;
+		
+		Graphics2D  graphics = bimage.createGraphics();
+		
+		//日期涂白
+		graphics.setColor(new Color(255,255,255));
+		Rectangle bgTOWhite = new Rectangle(820, 970, 210, 70);
+		graphics.fill(bgTOWhite);
+		
+		//获取今天的日期
+		Date date = new Date();
+		SimpleDateFormat Fdate = new SimpleDateFormat("yyyy.MM.dd");
+		String Edate = Fdate.format(date);
+		
+		//写上今天的日期
+		graphics.setColor(new Color(169, 174, 180));
+		Font font = new Font("黑体",Font.PLAIN,45);
+		graphics.setFont(font);
+		graphics.drawString(Edate, 800, 1020);
+		
+		graphics.dispose();
+		ImageIO.write(bimage, "jpg", new File("out.jpg"));
+		
+	}
+	
 }
